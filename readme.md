@@ -78,3 +78,12 @@ This fix also applies for W/O using HMVC.
 
 Please notice you still can't access <http://localhost/codeigniter/welcome>
 but you can access <http://codeigniter.test/welcome> which what you want in production using your domain name.
+
+## PHP version >8.0
+### str_replace(): Passing null to parameter
+
+just add ?? '' like below
+
+```
+$var = str_replace($something_1 ?? '', $something_2 ?? '')
+```
