@@ -53,17 +53,17 @@ $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERV
 
 ### Laragon can't access controller manually (ex : localhost/codeigniter/index.php/welcome/index or codeigniter.test/welcome/index)
 
-make codeigniter.php in X:\laragon\etc\nginx\alias
+make codeigniter.conf in X:\laragon\etc\nginx\alias
 
 ```
 location ~ [^/]\.php(?:$|/) {
- fastcgi_split_path_info ^(.+\.php)(.*)$;
- # fastcgi_pass   unix:/var/run/php/php7.4-fpm.sock;
- fastcgi_pass php_upstream;
- include        fastcgi_params;
- fastcgi_index  index.php;
- fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
- fastcgi_param  PATH_INFO  $fastcgi_path_info;
+	fastcgi_split_path_info ^(.+\.php)(.*)$;
+	# fastcgi_pass   unix:/var/run/php/php7.4-fpm.sock;
+	fastcgi_pass php_upstream;
+	include        fastcgi_params;
+	fastcgi_index  index.php;
+	fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+	fastcgi_param  PATH_INFO  $fastcgi_path_info;
 }
 
 # set expiration of assets to MAX for caching
@@ -74,5 +74,7 @@ location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
 ```
 
 This fix also applies for W/O using HMVC.
-please notice you still can't access http://localhost/codeigniter/welcome
-but you can access codeigniter.test/welcome which what you want in production using your domain name
+
+
+Please notice you still can't access <http://localhost/codeigniter/welcome>
+but you can access <http://codeigniter.test/welcome> which what you want in production using your domain name.
