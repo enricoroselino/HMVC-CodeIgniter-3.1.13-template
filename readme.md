@@ -68,8 +68,8 @@ location ~ [^/]\.php(?:$|/) {
 
 # set expiration of assets to MAX for caching
 location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
-    expires max;
-    log_not_found off;
+	expires max;
+	log_not_found off;
 }
 ```
 
