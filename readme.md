@@ -1,4 +1,4 @@
-# Common Problems
+# CodeIgniter Common Problems
 
 ## File URL
 
