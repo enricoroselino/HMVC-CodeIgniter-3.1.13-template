@@ -51,7 +51,7 @@ $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERV
 
 ## NGINX code igniter problem resolve
 
-### Laragon can't access controller manually (ex : localhost/codeigniter/index.php/welcome/index or codeigniter.test/welcome/index)
+### Laragon can't access controller manually or remove index.php (ex : localhost/codeigniter/index.php/welcome/index or codeigniter.test/welcome/index)
 
 make codeigniter.conf in X:\laragon\etc\nginx\alias
 
