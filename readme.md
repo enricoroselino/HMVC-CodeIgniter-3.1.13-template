@@ -26,7 +26,7 @@ open config.php
 $config['index_page'] = '';
 ```
 
-make .htaccess in root folder
+(apache) make .htaccess in root folder
 
 ```
 RewriteEngine On
@@ -48,7 +48,7 @@ $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERV
 ## NGINX code igniter problem resolve
 
 ### Can't access controller manually (ex : localhost/codeigniter/index.php/welcome/index )
-
+(Laragon Windows)
 Open 00-default.conf
 
 search for this line near line 20
