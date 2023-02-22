@@ -7,7 +7,7 @@
 For asset folder in root folder (outside application), use base_url() for every link
 
 ```
-<? echo base_url(); ?>/asset_folder/my_style.css
+<? echo base_url(); ?>/asset_folder/more_folder/my_style.css
 ```
 
 ### Can't use base_url()
@@ -26,13 +26,17 @@ open config.php
 $config['index_page'] = '';
 ```
 
-(apache) make .htaccess in root folder
+(apache, or nginx just make this just in case) make .htaccess in root folder
 
 ```
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php/$1 [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    Options -Indexes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
 ```
 
 ### Dynamic base url
@@ -47,17 +51,9 @@ $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERV
 
 ## NGINX code igniter problem resolve
 
-### Can't access controller manually (ex : localhost/codeigniter/index.php/welcome/index )
-(Laragon Windows)
-Open 00-default.conf
+### Laragon Can't access controller manually (ex : localhost/codeigniter/index.php/welcome/index or codeigniter.test/welcome/index)
 
-search for this line near line 20
-
-```
-location ~ \.php$ { ... }
-```
-
-and then append this below
+make codeigniter.php in X:\laragon\etc\nginx\alias
 
 ```
 location ~ [^/]\.php(?:$|/) {
@@ -69,6 +65,14 @@ location ~ [^/]\.php(?:$|/) {
  fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
  fastcgi_param  PATH_INFO  $fastcgi_path_info;
 }
+
+# set expiration of assets to MAX for caching
+location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+    expires max;
+    log_not_found off;
+}
 ```
 
 This fix also applies for W/O using HMVC.
+please notice you still can't access http://localhost/codeigniter/welcome
+but you can access codeigniter.test/welcome which what you want in production using your domain name
